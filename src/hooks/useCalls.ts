@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Call, CallStatus, CallAction } from '../types/call';
+import { buildApiUrl } from '../config/api';
 
 interface UseCallsReturn {
   calls: Call[];
@@ -19,7 +20,8 @@ export const useCalls = (): UseCallsReturn => {
       setError(null);
       
       // Try to fetch from API first
-      const response = await fetch('http://localhost:3000/calls?page=1&limit=20', {
+      const apiUrl = buildApiUrl('/calls');
+      const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
